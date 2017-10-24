@@ -58,4 +58,14 @@ public class DateTest {
     new Date(2017,5,32);
   }
 
+  @Test(expected=IllegalArgumentException.class)
+  public void invalidDate() {
+    new Date(2017,4,31);
+  }
+
+  
+
+
+
+
 }
