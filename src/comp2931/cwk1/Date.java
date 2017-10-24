@@ -113,6 +113,32 @@ public class Date {
         }
     }
 
-
+    /**
+     * Tests whether this date is equal to another.
+     *
+     * <p>The two objects are considered equal if both are instances of
+     * the date class <em>and</em> both represent exactly the same
+     * date.</p>
+     *
+     * @return True if this Date object is equal to the other, false otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+      if (other == this) {
+        // 'other' is same object as this one!
+        return true;
+      }
+      else if (! (other instanceof Date)) {
+        // 'other' is not a Time object
+        return false;
+      }
+      else {
+        // Compare fields
+        Date otherDate = (Date) other;
+        return getYear() == otherDate.getYear()
+            && getMonth() == otherDate.getMonth()
+            && getDay() == otherDate.getDay();
+      }
+    }
 
 }
