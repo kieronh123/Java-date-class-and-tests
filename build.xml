@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<project name="Dates" basedir="." default="compile">
+
+  <property name="src.dir" value="src"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="scripts.dir" value="scripts"/>
+  <property name="build.dir" value="bin"/>
+  <property name="doc.dir" value="doc"/>
+  <property name="dist.dir" value="dist"/>
+  <property name="dist.dir" value="dist"/>
+  <property name="name" value="dates"/>
+  <property name="version" value="1_0"/>
+  <property name="release" value="${name}-${version}"/>
+  <property name="jar.name" value="${name}.jar"/>
+  <property name="jar.path" value="${dist.dir}/${jar.name}"/>
+  <property name="zip.name" value="${release}.zip"/>
+  <property name="zip.path" value="${dist.dir}/${zip.name}"/>
+
+  <path id="project.classpath">
+    <pathelement location="${build.dir}"/>
+    <pathelement location="${lib.dir}/junit-4.12.jar"/>
+    <pathelement location="${lib.dir}/hamcrest-core-1.3.jar"/>
+  </path>
+
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="init" description="Compile source code">
+    <javac srcdir="${src.dir}" destdir="${build.dir}"
+      includeantruntime="false">
+      <classpath refid="project.classpath"/>
+    </javac>
+  </target>
+
+  <target name="date" depends="compile" description="Run Date">
+      <java classname="comp2931.cwk1.Date">
+          <classpath refid="project.classpath"/>
+      </java>
+  </target>
+
+
+
+  <target name="test" depends="compile" description="Run unit tests">
+  <junit fork="true">
+    <classpath refid="project.classpath"/>
+    <formatter type="plain" usefile="false"/>
+    <test name="comp2931.cwk1.DateTest"/>
+  </junit>
+</target>
+
+
+
+  <target name="docs" depends="compile"
+  description="Generate documentation from Javadoc comments">
+  <mkdir dir="${doc.dir}"/>
+  <javadoc destdir="${doc.dir}" author="true" version="true">
+    <classpath refid="project.classpath"/>
+    <package name="comp2931.cwk1.Date"/>
+    <fileset dir="${src.dir}">
+      <exclude name="**/*Test.java"/>
+    </fileset>
+  </javadoc>
+</target>
+
+<target name="jar" depends="compile"
+  description="Package Date as a JAR file">
+  <mkdir dir="${dist.dir}"/>
+  <jar destfile="${jar.path}">
+    <fileset dir="${build.dir}" excludes="**/*Test.class"/>
+    <manifest>
+      <attribute name="Main-Class" value="comp2931.cwk1.Date"/>
+    </manifest>
+  </jar>
+</target>
+
+<target name="zip" depends="jar,docs"
+  description="Create a Zip archive for distribution">
+  <zip destfile="${zip.path}">
+    <zipfileset dir="${scripts.dir}" includes="*.bat,*.sh"
+      prefix="${release}"/>
+    <zipfileset dir="${dist.dir}" includes="${jar.name}"
+      prefix="${release}"/>
+    <zipfileset dir="${doc.dir}" prefix="${release}/doc"/>
+  </zip>
+</target>
+
+<target name="clean" description="Remove compiled code and docs">
+  <delete dir="${build.dir}"/>
+  <delete dir="${doc.dir}"/>
+</target>
+
+<target name="veryclean" depends="clean" description="Remove all generated files">
+  <delete dir="${dist.dir}"/>
+</target>
+
+</project>
