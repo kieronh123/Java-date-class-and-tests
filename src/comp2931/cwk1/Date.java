@@ -24,26 +24,16 @@ public class Date {
    * @param m Month
    * @param d Day
    */
-  public Date(int y, int m, int d)
+  public Date(int y, int m, int d) throws IllegalArgumentException
   {
-      if (y <= 0 )
-      {
-          throw new IllegalArgumentException("Year out of bounds");
-      }
-      else if (m <= 0 || m > MONTHS_PER_YEAR)
-      {
-          throw new IllegalArgumentException("Month out of bounds");
-      }
-      else if (d <= 0 || d > DAYS_PER_MONTH)
-      {
-          throw new IllegalArgumentException("Day out of bounds");
-      }
-      else
-      {
+
+
+        if (!validDate(y, m, d)) throw new IllegalArgumentException("Invalid Date given");
+
           year = y;
           month = m;
           day = d;
-      }
+
 
   }
 
@@ -90,7 +80,38 @@ public class Date {
     return String.format("%04d-%02d-%2d", year, month, day);
   }
 
-
+  /**
+   * Returns true or false depending on if the date is
+   * valid or not
+   *
+   * @param y Year
+   * @param m Month
+   * @param d Date
+   *
+   * @return true if the date is valid, false if the date is not valid
+   */
+  public boolean validDate(int y, int m, int d)
+  {
+        if (y < 0) return false;
+        if ((m < 1) || (m > 12)) return false;
+        if ((d < 1) || (d > 31)) return false;
+        switch (m)
+        {
+            case 1: return true;
+            case 2: return d < 29;
+            case 3: return true;
+            case 4: return d < 31;
+            case 5: return true;
+            case 6: return d < 31;
+            case 7: return true;
+            case 8: return true;
+            case 9: return d < 31;
+            case 10: return true;
+            case 11: return d < 31;
+            case 12: return true;
+            default: return true;
+        }
+    }
 
 
 
