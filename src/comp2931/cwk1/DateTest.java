@@ -32,4 +32,30 @@ public class DateTest {
     assertThat(firstDay.toString(), is("2017-01- 1"));
     assertThat(lastDay.toString(), is("2017-12-31"));
   }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void yearTooLow() {
+    new Date(-1,1,1);
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void monthTooLow() {
+    new Date(2017,-1,10);
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void monthTooHigh() {
+    new Date(2017,13,15);
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void dayTooLow() {
+    new Date(2017,3,-1);
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void dayTooHigh() {
+    new Date(2017,5,32);
+  }
+
 }

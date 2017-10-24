@@ -8,6 +8,11 @@ package comp2931.cwk1;
  */
 public class Date {
 
+
+    private static final int DAYS_PER_MONTH = 31;
+    private static final int MONTHS_PER_YEAR = 12;
+
+
   private int year;
   private int month;
   private int day;
@@ -19,10 +24,27 @@ public class Date {
    * @param m Month
    * @param d Day
    */
-  public Date(int y, int m, int d) {
-    year = y;
-    month = m;
-    day = d;
+  public Date(int y, int m, int d)
+  {
+      if (y <= 0 )
+      {
+          throw new IllegalArgumentException("Year out of bounds");
+      }
+      else if (m <= 0 || m > MONTHS_PER_YEAR)
+      {
+          throw new IllegalArgumentException("Month out of bounds");
+      }
+      else if (d <= 0 || d > DAYS_PER_MONTH)
+      {
+          throw new IllegalArgumentException("Day out of bounds");
+      }
+      else
+      {
+          year = y;
+          month = m;
+          day = d;
+      }
+
   }
 
   /**
@@ -30,7 +52,8 @@ public class Date {
    *
    * @return Year
    */
-  public int getYear() {
+  public int getYear()
+  {
     return year;
   }
 
@@ -39,7 +62,8 @@ public class Date {
    *
    * @return Month
    */
-  public int getMonth() {
+  public int getMonth()
+  {
     return month;
   }
 
@@ -48,7 +72,8 @@ public class Date {
    *
    * @return Day
    */
-  public int getDay() {
+  public int getDay()
+  {
     return day;
   }
 
@@ -60,8 +85,13 @@ public class Date {
    * @return Date as a string
    */
   @Override
-  public String toString() {
+  public String toString()
+  {
     return String.format("%04d-%02d-%2d", year, month, day);
   }
+
+
+
+
 
 }
