@@ -1,8 +1,9 @@
 // Class for COMP2931 Coursework 1
 
+
 package comp2931.cwk1;
-
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 /**
  * Simple representation of a date.
  */
@@ -105,6 +106,7 @@ public class Date {
             return false;
         }
 
+        //taking into consideration the months with more or less than 30 days
         switch (m)
         {
             case 1: return true;
@@ -153,6 +155,36 @@ public class Date {
             && getMonth() == otherDate.getMonth()
             && getDay() == otherDate.getDay();
       }
+    }
+
+    /**
+     * Returns the day of the year as an integer
+     *
+     * <p> For example: if the given date is the 15th of january
+     *     then this will return 15. If the date is the 31st of
+     *     december then 365 will be returned.</p>
+     *
+     * @return Day of the year as an integer
+     */
+    public int getDayOfYear()
+    {
+        switch(month)
+        {
+            case 1: return day;
+            case 2: return day + 31;
+            case 3: return day + 59; //28
+            case 4: return day + 90; //31
+            case 5: return day + 120; //30
+            case 6: return day + 151; //31
+            case 7: return day + 181;    // 30
+            case 8: return day + 212;     //31
+            case 9: return day + 243;        //31
+            case 10: return day + 273;     //30
+            case 11: return day + 304;      //31
+            case 12: return day + 334;      //30
+            default: return 0;
+        }
+
     }
 
 }
