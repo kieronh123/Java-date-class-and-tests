@@ -4,6 +4,7 @@
 package comp2931.cwk1;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 /**
  * Simple representation of a date.
  */
@@ -109,19 +110,32 @@ public class Date {
         //taking into consideration the months with more or less than 30 days
         switch (m)
         {
-            case 1: return true;
-            case 2: return d < 29;
-            case 3: return true;
-            case 4: return d < 31;
-            case 5: return true;
-            case 6: return d < 31;
-            case 7: return true;
-            case 8: return true;
-            case 9: return d < 31;
-            case 10: return true;
-            case 11: return d < 31;
-            case 12: return true;
-            default: return true;
+            case 1:
+                    return true;
+            case 2:
+                    return (isLeapYear(y) ? d <= 29 : d <= 28);
+            case 3:
+                    return true;
+            case 4:
+                    return d < 31;
+            case 5:
+                    return true;
+            case 6:
+                    return d < 31;
+            case 7:
+                    return true;
+            case 8:
+                    return true;
+            case 9:
+                    return d < 31;
+            case 10:
+                    return true;
+            case 11:
+                    return d < 31;
+            case 12:
+                    return true;
+            default:
+                    return true;
         }
     }
 
@@ -168,23 +182,92 @@ public class Date {
      */
     public int getDayOfYear()
     {
+        int dayNum = 0;
         switch(month)
         {
-            case 1: return day;
-            case 2: return day + 31;
-            case 3: return day + 59; //28
-            case 4: return day + 90; //31
-            case 5: return day + 120; //30
-            case 6: return day + 151; //31
-            case 7: return day + 181;    // 30
-            case 8: return day + 212;     //31
-            case 9: return day + 243;        //31
-            case 10: return day + 273;     //30
-            case 11: return day + 304;      //31
-            case 12: return day + 334;      //30
-            default: return 0;
+            /**
+             * For january and february the day number does not depend on
+             * the year being a leap year so just return the value
+             */
+            case 1:
+                    return day;
+            case 2:
+                    return day + 31;
+            case 3:
+                    dayNum = day + 59;
+                    break;
+            case 4:
+                    dayNum = day + 90;
+                    break;
+            case 5:
+                    dayNum = day + 120;
+                    break;
+            case 6:
+                    dayNum = day + 151;
+                    break;
+            case 7:
+                    dayNum = day + 181;
+                    break;
+            case 8:
+                    dayNum = day + 212;
+                    break;
+            case 9:
+                    dayNum = day + 243;
+                    break;
+            case 10:
+                    dayNum = day + 273;
+                    break;
+            case 11:
+                    dayNum = day + 304;
+                    break;
+            case 12:
+                    dayNum = day + 334;
+                    break;
         }
 
+        /**
+         * If the year is a leap year and the month is not jan or feb, add 1 to the day number.
+         * If not a leap year then just return the dayNum variable
+         */
+        if(isLeapYear(year))
+        {
+            return dayNum+1;
+        }
+        else
+        {
+            return dayNum;
+        }
     }
+
+
+    /**
+     * Method that returns a boolean that determines if the year given is
+     * a leap yaer.
+     *
+     * <p>A year is given as a parameter. The calendar library is used to
+     *    determine wether this year is a leap year by checking if the maximum
+     *    day of the given year is larger than 365. If the maximum day is larger
+     *    than 365 then the method returns true.</p>
+     *
+     * @param y - Year
+     *
+     * @return True if leap year, false if not.
+     */
+    public boolean isLeapYear(int y)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, y);
+        if(cal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+
 
 }
