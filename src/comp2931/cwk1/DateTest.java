@@ -17,6 +17,8 @@ public class DateTest
     private Date firstDay;
     private Date lastDay;
     private Date day242;
+    private Date feb29LeapYear;
+    private Date lastDayOfLeapYear;
 
 
     @Before
@@ -25,6 +27,8 @@ public class DateTest
         firstDay = new Date(2017,1,1);
         lastDay = new Date(2017,12,31);
         day242 = new Date(2017,8,30);
+        feb29LeapYear = new Date(2004,2,29);
+        lastDayOfLeapYear = new Date(2008,12,31);
     }
 
 
@@ -42,6 +46,8 @@ public class DateTest
         assertThat(firstDay.getDayOfYear(), is(1));
         assertThat(lastDay.getDayOfYear(), is(365));
         assertThat(day242.getDayOfYear(), is(242));
+        assertThat(feb29LeapYear.getDayOfYear(), is(60));
+        assertThat(lastDayOfLeapYear.getDayOfYear(), is(366));
     }
 
     @Test(expected=IllegalArgumentException.class)
