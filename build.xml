@@ -11,10 +11,7 @@
   <property name="name" value="dates"/>
   <property name="version" value="1_0"/>
   <property name="release" value="${name}-${version}"/>
-  <property name="jar.name" value="${name}.jar"/>
-  <property name="jar.path" value="${dist.dir}/${jar.name}"/>
-  <property name="zip.name" value="${release}.zip"/>
-  <property name="zip.path" value="${dist.dir}/${zip.name}"/>
+
 
   <path id="project.classpath">
     <pathelement location="${build.dir}"/>
@@ -63,35 +60,12 @@
   </javadoc>
 </target>
 
-<target name="jar" depends="compile"
-  description="Package Date as a JAR file">
-  <mkdir dir="${dist.dir}"/>
-  <jar destfile="${jar.path}">
-    <fileset dir="${build.dir}" excludes="**/*Test.class"/>
-    <manifest>
-      <attribute name="Main-Class" value="comp2931.cwk1.Date"/>
-    </manifest>
-  </jar>
-</target>
 
-<target name="zip" depends="jar,docs"
-  description="Create a Zip archive for distribution">
-  <zip destfile="${zip.path}">
-    <zipfileset dir="${scripts.dir}" includes="*.bat,*.sh"
-      prefix="${release}"/>
-    <zipfileset dir="${dist.dir}" includes="${jar.name}"
-      prefix="${release}"/>
-    <zipfileset dir="${doc.dir}" prefix="${release}/doc"/>
-  </zip>
-</target>
 
 <target name="clean" description="Remove compiled code and docs">
   <delete dir="${build.dir}"/>
   <delete dir="${doc.dir}"/>
 </target>
 
-<target name="veryclean" depends="clean" description="Remove all generated files">
-  <delete dir="${dist.dir}"/>
-</target>
 
 </project>
