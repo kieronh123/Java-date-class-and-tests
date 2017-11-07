@@ -4,6 +4,7 @@
 package comp2931.cwk1;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
 
 /**
  * Simple representation of a date.
@@ -11,7 +12,7 @@ import java.util.GregorianCalendar;
 public class Date {
 
 
-    private static final int DAYS_PER_MONTH = 31;
+    private static final int MAX_DAYS_PER_MONTH = 31;
     private static final int MONTHS_PER_YEAR = 12;
 
     private int year;
@@ -31,10 +32,26 @@ public class Date {
         {
             throw new IllegalArgumentException("Invalid Date given");
         }
+        else
+        {
+            year = y;
+            month = m;
+            day = d;
+        }
 
-        year = y;
-        month = m;
-        day = d;
+    }
+
+    public Date()
+    {
+        Calendar currentDate = Calendar.getInstance(); //Get the current date
+        java.util.Date x = currentDate.getTime();
+        SimpleDateFormat formatyear = new SimpleDateFormat("yyyy");
+        this.year = Integer.parseInt(formatyear.format(x));
+        SimpleDateFormat formatmonth = new SimpleDateFormat("MM");
+        this.month = Integer.parseInt(formatmonth.format(x));
+        SimpleDateFormat formatdd = new SimpleDateFormat("dd");
+        this.day = Integer.parseInt(formatdd.format(x));
+
     }
 
     /**
@@ -77,7 +94,7 @@ public class Date {
     @Override
     public String toString()
     {
-        return String.format("%04d-%02d-%2d", year, month, day);
+        return String.format("%04d-%02d-%02d", year, month, day);
     }
 
     /**
@@ -92,17 +109,17 @@ public class Date {
     */
     public boolean validDate(int y, int m, int d)
     {
-        if (y < 0)
+        if (y < 1)
         {
             return false;
         }
 
-        if ((m < 1) || (m > 12))
+        if ((m < 1) || (m > MONTHS_PER_YEAR))
         {
             return false;
         }
 
-        if ((d < 1) || (d > 31))
+        if ((d < 1) || (d > MAX_DAYS_PER_MONTH))
         {
             return false;
         }
@@ -113,7 +130,7 @@ public class Date {
             case 1:
                     return true;
             case 2:
-                    return (isLeapYear(y) ? d <= 29 : d <= 28);
+                    return (isLeapYear(y) ? d < 30 : d < 29);
             case 3:
                     return true;
             case 4:
@@ -229,7 +246,7 @@ public class Date {
          * If the year is a leap year and the month is not jan or feb, add 1 to the day number.
          * If not a leap year then just return the dayNum variable
          */
-        if(isLeapYear(year))
+        if(isLeapYear(year)==true)
         {
             return dayNum+1;
         }
