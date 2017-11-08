@@ -64,6 +64,35 @@ public class DateTest
       assertFalse(firstDayOfYear.equals("2017-01-01"));
     }
 
+    @Test
+    public void years()
+    {
+        assertThat(firstDayOfYear.getYear(), is(2017));
+        assertThat(lastDay.getYear(), is(2017));
+        assertThat(day242.getYear(), is(2017));
+        assertThat(feb29LeapYear.getYear(), is(2004));
+        assertThat(lastDayOfLeapYear.getYear(), is(2008));
+    }
+
+    @Test
+    public void months()
+    {
+        assertThat(firstDayOfYear.getMonth(), is(1));
+        assertThat(lastDay.getMonth(), is(12));
+        assertThat(day242.getMonth(), is(8));
+        assertThat(feb29LeapYear.getMonth(), is(2));
+        assertThat(lastDayOfLeapYear.getMonth(), is(12));
+    }
+
+    @Test
+    public void days()
+    {
+        assertThat(firstDayOfYear.getDay(), is(1));
+        assertThat(lastDay.getDay(), is(31));
+        assertThat(day242.getDay(), is(30));
+        assertThat(feb29LeapYear.getDay(), is(29));
+        assertThat(lastDayOfLeapYear.getDay(), is(31));
+    }
 
     @Test(expected=IllegalArgumentException.class)
     public void yearTooLow()

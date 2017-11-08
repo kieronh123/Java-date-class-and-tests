@@ -1,6 +1,3 @@
-// Class for COMP2931 Coursework 1
-
-
 package comp2931.cwk1;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,10 +5,11 @@ import java.text.SimpleDateFormat;
 
 /**
  * Simple representation of a date.
+ *
+ * @author Kieron Hushon
  */
-public class Date {
-
-
+public class Date
+{
     private static final int MAX_DAYS_PER_MONTH = 31;
     private static final int MONTHS_PER_YEAR = 12;
 
@@ -41,16 +39,20 @@ public class Date {
 
     }
 
+    /**
+     * Default constructor that creates an object
+     *  representing todays date.
+     */
     public Date()
     {
-        Calendar currentDate = Calendar.getInstance(); //Get the current date
-        java.util.Date x = currentDate.getTime();
-        SimpleDateFormat formatyear = new SimpleDateFormat("yyyy");
-        this.year = Integer.parseInt(formatyear.format(x));
-        SimpleDateFormat formatmonth = new SimpleDateFormat("MM");
-        this.month = Integer.parseInt(formatmonth.format(x));
-        SimpleDateFormat formatdd = new SimpleDateFormat("dd");
-        this.day = Integer.parseInt(formatdd.format(x));
+        Calendar currentDate = Calendar.getInstance();
+        java.util.Date time = currentDate.getTime();
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        this.year = Integer.parseInt(yearFormat.format(time));
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        this.month = Integer.parseInt(monthFormat.format(time));
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+        this.day = Integer.parseInt(dayFormat.format(time));
 
     }
 
@@ -272,9 +274,9 @@ public class Date {
      */
     public boolean isLeapYear(int y)
     {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, y);
-        if(cal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365)
+        Calendar tempCal = Calendar.getInstance();
+        tempCal.set(Calendar.YEAR, y);
+        if(tempCal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365)
         {
             return true;
         }
