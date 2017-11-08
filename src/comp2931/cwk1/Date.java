@@ -172,12 +172,12 @@ public class Date
     {
       if (other == this)
       {
-        // 'other' is same object as this one!
+        // 'other' is same object as this one
         return true;
       }
       else if (! (other instanceof Date))
       {
-        // 'other' is not a Time object
+        // 'other' is not a Date object
         return false;
       }
       else
@@ -204,10 +204,9 @@ public class Date
         int dayNum = 0;
         switch(month)
         {
-            /**
-             * For january and february the day number does not depend on
-             * the year being a leap year so just return the value
-             */
+
+             //For january and february the day number does not depend on
+             //the year being a leap year so just return the value
             case 1:
                     return day;
             case 2:
@@ -244,10 +243,9 @@ public class Date
                     break;
         }
 
-        /**
-         * If the year is a leap year and the month is not jan or feb, add 1 to the day number.
-         * If not a leap year then just return the dayNum variable
-         */
+
+        //If the year is a leap year and the month is not jan or feb, add 1 to the day number.
+        //If not a leap year then just return the dayNum variable
         if(isLeapYear(year)==true)
         {
             return dayNum+1;

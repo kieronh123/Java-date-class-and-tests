@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 
 public class DateTest
 {
-
     private Date firstDayOfYear;
     private Date lastDay;
     private Date day242;
@@ -42,7 +41,6 @@ public class DateTest
         assertThat(day242.toString(), is("2017-08-30"));
         assertThat(feb29LeapYear.toString(), is("2004-02-29"));
         assertThat(lastDayOfLeapYear.toString(), is("2008-12-31"));
-        //assertThat(currentDate.toString(), is("2017-10-26"));
     }
 
     @Test
@@ -135,5 +133,6 @@ public class DateTest
     {
         new Date(2011,2,29);
     }
+
 
 }
